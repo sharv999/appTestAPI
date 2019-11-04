@@ -31,7 +31,7 @@
 
         init();
         loadStl(-1, -1);
-        animate();
+        //animate();
     }
 
     function init() {
