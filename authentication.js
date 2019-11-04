@@ -20,7 +20,7 @@ var OnshapeStrategy = require('passport-onshape').Strategy;
 // Hardwired rather than ENV
 var oauthClientId = 'LQ4HO6M3XL2UWDAQPDAPDN2O7O2MQBTXDY27QNA=';
 var oauthClientSecret = 'RABZKDUU3IOSE6VZXNPPXPNIXNUNZ4NWGQ4U5XB4QQSGATDGDXYA====';
-var callbackUrl = 'https://thawing-dawn-18688.herokuapp.com/oauthRedirect';
+var callbackUrl = 'https://murmuring-temple-07496.herokuapp.com/oauthRedirect';
 var oauthUrl = 'https://oauth.onshape.com';
 var apiUrl = 'https://cad.onshape.com';
 
