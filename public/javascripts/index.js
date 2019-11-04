@@ -1,3 +1,13 @@
+/**********************************************************
+*
+* MODULE: 		index.js
+*
+* PROJECT: 		appTestAPI
+*
+* DESCRIPTION:	Main
+*
+***********************************************************/
+
 (function() {
     if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
     var container, stats;
@@ -25,7 +35,10 @@
     }
 
     function init() {
-
+		
+		// DEBUG
+		console.log("** DEBUG: init()");
+		
         // Make sure there is nothing kept from the previous model shown
 //        deleteModels();
 
@@ -33,9 +46,10 @@
         $("#elt-select2").append("<option>-- Top of List --</option>");
 
         var elementsDict;
+		
         getElements().then(getParts);
 
-
+/*
         // Initialize Camera
         camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 0.1, 1e6);
         camera.position.set(3, 3, 3); // must initialize camera position
@@ -71,7 +85,7 @@
         container = $('#stl-viewport');
         container.append(renderer.domElement);
         container.append( stats.domElement );
-
+*/
         window.addEventListener( 'resize', onWindowResize, false );
     }
 
@@ -94,6 +108,10 @@
      * in the URL query string.
      */
     function loadStl(angleTolerance, chordTolerance) {
+		
+		// DEBUG
+		console.log("** DEBUG: loadStl()");
+		
         var url = '/api/stl' + window.location.search;
 
         // Parse the search string to make sure we have the last piece to load
@@ -120,6 +138,7 @@
 
         $('#stl-progress-bar').removeClass('hidden');
 
+		// Displays STL data
         $.ajax(url, {
             type: 'GET',
             data: {
@@ -132,10 +151,10 @@
                         return c.charCodeAt(0);
                     }));
                     // Load stl data from buffer of Uint8Array
-                    loadStlData(u8.buffer);
+                    //loadStlData(u8.buffer);
                 } else {
                     // ASCII
-                    loadStlData(data);
+                   //loadStlData(data);
                 }
                 $('#stl-progress-bar').addClass('hidden')
             }
@@ -221,6 +240,10 @@
 
     // Functions to support loading list of models to view ...
     function getElements() {
+		
+		// DEBUG
+		console.log("** DEBUG: getElements()");
+		
         var dfd = $.Deferred();
         $.ajax('/api/elements'+ window.location.search, {
             dataType: 'json',
@@ -235,6 +258,10 @@
     }
 
     function getParts() {
+		
+		// DEBUG
+		console.log("** DEBUG: getParts()");
+		
         var dfd = $.Deferred();
         $.ajax('/api/parts' + window.location.search, {
             dataType: 'json',
@@ -249,7 +276,10 @@
     }
 
     function addElements(data, dfd) {
-        console.log('adding elements');
+		
+		// DEBUG
+		console.log("** DEBUG: addElements()");
+        
         var onshapeElements = $("#onshape-elements");
         onshapeElements.empty();
         for (var i = 0; i < data.length; ++i) {
@@ -270,6 +300,10 @@
     }
 
     function createElementsDict(elementsArray) {
+		
+		// DEBUG
+		console.log("** DEBUG: createElementsDict()");
+		
         dict = {};
         for (var i = 0; i < elementsArray.length; ++i) {
             dict[elementsArray[i]["id"]] = elementsArray[i];
@@ -278,6 +312,10 @@
     }
 
     function addParts(data, dfd, elementsDict) {
+		
+		// DEBUG
+		console.log("** DEBUG: addParts()");
+		
         data.sort(function(a, b) {
             var key1 = a["elementId"];
             var key2 = b["elementId"];
@@ -308,6 +346,10 @@
     }
 
     function createPartList(partsContainer, elementId, elementName) {
+		
+		// DEBUG
+		console.log("** DEBUG: createPartsList()");
+		
         var partListId = 'onshape-parts-' + elementId;
         partsContainer.append("<div class='panel-heading'><h3 class='panel-title'>" +
         escapeString(elementName) + "</h3></div>");
