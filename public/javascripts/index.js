@@ -8,10 +8,13 @@
 *
 ***********************************************************/
 
+// 
+// Function: main
+//
 (function() {
     if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
-    var container, stats;
-    var camera, controls, scene, renderer;
+    //var container, stats;
+    //var camera, controls, scene, renderer;
     var loadedModels = [];
     var previousData = false;
 
@@ -34,85 +37,36 @@
         //animate();
     }
 
+	// 
+	// Function: init
+	//
     function init() {
 		
 		// DEBUG
 		console.log("** DEBUG: init()");
 		
-        // Make sure there is nothing kept from the previous model shown
-//        deleteModels();
-
         // Setup the drop list for models ...
         $("#elt-select2").append("<option>-- Top of List --</option>");
 
         var elementsDict;
 		
-        getElements().then(getParts);
-
-/*
-        // Initialize Camera
-        camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 0.1, 1e6);
-        camera.position.set(3, 3, 3); // must initialize camera position
-
-        // Initialize Controls
-        controls = new THREE.TrackballControls(camera);
-        controls.minDistance = 0.5;
-
-        // Initialize Scene
-        scene = new THREE.Scene();
-        scene.fog = new THREE.Fog(0xffffff, 0.1, 1e6);
-
-        createLights();
-
-        // Renderer
-        renderer = new THREE.WebGLRenderer( { antialias: true } );
-        renderer.setSize( window.innerWidth, window.innerHeight );
-
-        renderer.setClearColor( scene.fog.color, 1 );
-
-        renderer.gammaInput = true;
-        renderer.gammaOutput = true;
-
-        renderer.shadowMapEnabled = true;
-        renderer.shadowMapCullFace = THREE.CullFaceBack;
-
-        // Stats
-        stats = new Stats();
-        stats.domElement.style.position = 'absolute';
-        stats.domElement.style.top = '0px';
-
-        // Add to DOM
-        container = $('#stl-viewport');
-        container.append(renderer.domElement);
-        container.append( stats.domElement );
-*/
+        // Get the elements and parts data
+		getElements().then(getParts);
         window.addEventListener( 'resize', onWindowResize, false );
     }
-
-    function deleteModels() {
-        for (var i = loadedModels.length - 1; i >= 0; --i) {
-            scene.remove(loadedModels[i]);
-            loadedModels.pop();
-        }
-    }
-
-    function createLights() {
-        scene.add( new THREE.AmbientLight( 0x777777 ) );
-        addShadowedLight( 10, 10, 15, 0xffffff, 1.35 );
-        addShadowedLight( 5, 10, -10, 0xffffff, 1 );
-        addShadowedLight( -10, -5, -10, 0xffffff, 1 );
-    }
-
-    /*
-     * Grab STL data from server. Information about which STL to grab is located
-     * in the URL query string.
-     */
-    function loadStl(angleTolerance, chordTolerance) {
+	
+	// 
+	// Function: loadStl
+	//
+	function loadStl(angleTolerance, chordTolerance) {
 		
 		// DEBUG
 		console.log("** DEBUG: loadStl()");
 		
-        var url = '/api/stl' + window.location.search;
+		// Grab STL data from server. Information about which STL to grab is located
+		// in the URL query string.
+		
+		var url = '/api/stl' + window.location.search;
 
         // Parse the search string to make sure we have the last piece to load
         var local = window.location.search;
@@ -161,84 +115,9 @@
         });
     }
 
-    /*
-     * Load STL data using the STL loader included with three.js
-     * @param data The data from the STL file.
-     */
-    function loadStlData(data) {
-
-        var material = new THREE.MeshPhongMaterial({
-            ambient: 0x555555,
-            color: 0x0072BB,
-            specular: 0x111111,
-            shininess: 200
-        });
-        // Initialize loader
-        var loader = new THREE.STLLoader();
-        // Load using loader.parse rather than loader.load because we are loading
-        // from data rather than from a file
-        var geometry = loader.parse(data);
-
-        // Zoom Camera to model
-        THREE.GeometryUtils.center(geometry);
-        geometry.computeBoundingSphere();
-        fitToWindow(geometry.boundingSphere.radius);
-
-        // Add mesh to scene
-        var mesh = new THREE.Mesh(geometry, material);
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
-
-        loadedModels.push(mesh);
-        scene.add(mesh);
-    }
-
-    function addShadowedLight(x, y, z, color, intensity) {
-        var directionalLight = new THREE.DirectionalLight( color, intensity );
-        directionalLight.position.set( x, y, z );
-        scene.add( directionalLight );
-
-        var d = 1;
-        directionalLight.shadowCameraLeft = -d;
-        directionalLight.shadowCameraRight = d;
-        directionalLight.shadowCameraTop = d;
-        directionalLight.shadowCameraBottom = -d;
-
-        directionalLight.shadowCameraNear = 1;
-        directionalLight.shadowCameraFar = 4;
-
-        directionalLight.shadowMapWidth = 1024;
-        directionalLight.shadowMapHeight = 1024;
-
-        directionalLight.shadowBias = -0.005;
-        directionalLight.shadowDarkness = 0.15;
-    }
-
-    function fitToWindow(boundingSphereRadius) {
-        var dist = camera.aspect * boundingSphereRadius / Math.tan(camera.fov * (Math.PI / 180));
-
-        var cameraUnitVector = camera.position.clone().normalize();
-        camera.position = cameraUnitVector.multiplyScalar(dist);
-    }
-
-    function onWindowResize() {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize( window.innerWidth, window.innerHeight );
-    }
-
-    function animate() {
-        requestAnimationFrame(animate);
-        render();
-        stats.update();
-    }
-
-    function render() {
-        controls.update();
-        renderer.render(scene, camera);
-    }
-
-    // Functions to support loading list of models to view ...
+    // 
+	// Function: getElements
+	//
     function getElements() {
 		
 		// DEBUG
@@ -254,9 +133,15 @@
             error: function() {
             }
         });
+		
+		console.log("** DEBUG: Elements:  /api/elements"+ window.location.search);
+		
         return dfd.promise();
     }
 
+	// 
+	// Function: getParts
+	//
     function getParts() {
 		
 		// DEBUG
@@ -272,9 +157,15 @@
             error: function() {
             }
         });
+		
+		console.log("** DEBUG: Parts:  /api/parts"+ window.location.search);
+		
         return dfd.promise();
     }
 
+	// 
+	// Function: addElements
+	//
     function addElements(data, dfd) {
 		
 		// DEBUG
@@ -299,6 +190,9 @@
         dfd.resolve();
     }
 
+	// 
+	// Function: createElementsDict
+	//
     function createElementsDict(elementsArray) {
 		
 		// DEBUG
@@ -311,6 +205,9 @@
         return dict;
     }
 
+	// 
+	// Function: addParts
+	//
     function addParts(data, dfd, elementsDict) {
 		
 		// DEBUG
@@ -345,6 +242,9 @@
         dfd.resolve();
     }
 
+	// 
+	// Function: createPartList
+	//
     function createPartList(partsContainer, elementId, elementName) {
 		
 		// DEBUG
@@ -357,6 +257,9 @@
         return partListId;
     }
 
+	// 
+	// Function: escapeString
+	//
     function escapeString(string) {
         return string.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
