@@ -181,7 +181,6 @@
                 $("#elt-select2")
                     .append(
                     "<option href='" + href + "'>" + "Element - " + data[i].name + "</option>"
-				console.log("** DEBUG: href", href);	
                 )
             }
         }
@@ -201,6 +200,7 @@
         dict = {};
         for (var i = 0; i < elementsArray.length; ++i) {
             dict[elementsArray[i]["id"]] = elementsArray[i];
+			console.log("** DEBUG: elementsArray:", i, elementsArray[i]);	
         }
         return dict;
     }
