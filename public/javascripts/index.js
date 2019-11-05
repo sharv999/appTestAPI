@@ -109,14 +109,18 @@
                     var u8 = new Uint8Array(atob(data).split('').map(function(c) {
                         return c.charCodeAt(0);
                     }));
-					// 
-				console.log("** DEBUG: loadStl(): u8.buffer: ", u8.buffer);
-				//
+				
                     // Load stl data from buffer of Uint8Array
+					// 
+					console.log("** DEBUG: loadStl(): u8.buffer: ", u8.buffer);
+					//
                     //loadStlData(u8.buffer);
                 } else {
                     // ASCII
                    //loadStlData(data);
+				   // 
+					console.log("** DEBUG: loadStl(): data: ", data);
+					//
                 }
                 $('#stl-progress-bar').addClass('hidden')
             }
