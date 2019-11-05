@@ -52,7 +52,7 @@
 		
         // Get the elements and parts data
 		getElements().then(getParts);
-        window.addEventListener( 'resize', onWindowResize, false );
+        //window.addEventListener( 'resize', onWindowResize, false );
     }
 	
 	// 
@@ -180,8 +180,9 @@
                 var href = "/" + window.location.search + "&stlElementId=" + data[i].id;
                 $("#elt-select2")
                     .append(
-                    "<option href='" + href + "'>" + "Element - " + data[i].name + "</option>"
+                    "<option href='" + href + "'>" + "Element: " + data[i].name + "</option>"
                 )
+				console.log("** DEBUG: Adding element: ", data[i].name);
             }
         }
 
@@ -199,8 +200,7 @@
 		
         dict = {};
         for (var i = 0; i < elementsArray.length; ++i) {
-            dict[elementsArray[i]["id"]] = elementsArray[i];
-			console.log("** DEBUG: elementsArray:", i, elementsArray[i]);	
+            dict[elementsArray[i]["id"]] = elementsArray[i];		
         }
         return dict;
     }
@@ -234,9 +234,9 @@
                 elementId + "&partId=" + partId;
             $("#elt-select2")
                 .append(
-                "<option href='" + href + "'>" + "Part -" + data[i].name + "</option>"
+                "<option href='" + href + "'>" + "Part: " + data[i].name + "</option>"
             )
-
+			console.log("** DEBUG: Adding part: ", data[i].name);
         }
 
         dfd.resolve();
