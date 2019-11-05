@@ -181,8 +181,8 @@
                 $("#elt-select2")
                     .append(
                     "<option href='" + href + "'>" + "Element - " + data[i].name + "</option>"
+				console.log("** DEBUG: href", href);	
                 )
-
             }
         }
 
