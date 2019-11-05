@@ -33,6 +33,7 @@
         });
 
         init();
+		
         loadStl(-1, -1);
         //animate();
     }
@@ -108,6 +109,9 @@
                     var u8 = new Uint8Array(atob(data).split('').map(function(c) {
                         return c.charCodeAt(0);
                     }));
+					// 
+				console.log("** DEBUG: loadStl(): u8.buffer: ", u8.buffer);
+				//
                     // Load stl data from buffer of Uint8Array
                     //loadStlData(u8.buffer);
                 } else {
