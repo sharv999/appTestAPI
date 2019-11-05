@@ -82,7 +82,7 @@
 
                 url = '/api/stl' + newLocal;
 				// 
-				console.log("** DEBUG: loadStl(): stl segment: ", url);
+				console.log("** DEBUG: loadStl(): stl url: ", url);
 				//
 				
             }
@@ -119,7 +119,7 @@
                     // ASCII
                    //loadStlData(data);
 				   // 
-					console.log("** DEBUG: loadStl(): data: ", data);
+					console.log("** DEBUG: loadStl(): ASCII data: ", data);
 					//
                 }
                 $('#stl-progress-bar').addClass('hidden')
@@ -152,7 +152,7 @@
     }
 
 	// 
-	// Function: getParts
+	// Function: getParts - also called when drop-down menu changes
 	//
     function getParts() {
 		
@@ -195,7 +195,7 @@
                     "<option href='" + href + "'>" + "Element: " + data[i].name + "</option>"
                 )
 				// 
-				console.log("** DEBUG: Adding element: ", data[i].name);
+				//console.log("** DEBUG: Adding element: ", data[i].name);
 				// 
             }
         }
@@ -250,7 +250,7 @@
                 "<option href='" + href + "'>" + "Part: " + data[i].name + "</option>"
             )
 			// 
-			console.log("** DEBUG: Adding part: ", data[i].name);
+			//console.log("** DEBUG: Adding part: ", data[i].name);
 			// 
         }
         dfd.resolve();
