@@ -80,6 +80,10 @@
                 var newLocal = baseLocal + lastLocal;
 
                 url = '/api/stl' + newLocal;
+				// 
+				console.log("** DEBUG: loadStl(): stl segment: ", url);
+				//
+				
             }
         }
 
@@ -134,7 +138,7 @@
             }
         });
 		
-		console.log("** DEBUG: Elements:  /api/elements"+ window.location.search);
+		//console.log("** DEBUG: Elements:  /api/elements"+ window.location.search);
 		
         return dfd.promise();
     }
@@ -158,7 +162,7 @@
             }
         });
 		
-		console.log("** DEBUG: Parts:  /api/parts"+ window.location.search);
+		// console.log("** DEBUG: Parts:  /api/parts"+ window.location.search);
 		
         return dfd.promise();
     }
@@ -182,10 +186,11 @@
                     .append(
                     "<option href='" + href + "'>" + "Element: " + data[i].name + "</option>"
                 )
+				// 
 				console.log("** DEBUG: Adding element: ", data[i].name);
+				// 
             }
         }
-
         elementsDict = createElementsDict(data);
         dfd.resolve();
     }
@@ -236,31 +241,32 @@
                 .append(
                 "<option href='" + href + "'>" + "Part: " + data[i].name + "</option>"
             )
+			// 
 			console.log("** DEBUG: Adding part: ", data[i].name);
+			// 
         }
-
         dfd.resolve();
     }
 
 	// 
-	// Function: createPartList
+	// Function: createPartList - never gets called ...
 	//
-    function createPartList(partsContainer, elementId, elementName) {
+    //function createPartList(partsContainer, elementId, elementName) {
 		
 		// DEBUG
-		console.log("** DEBUG: createPartsList()");
+	//	console.log("** DEBUG: createPartsList()");
 		
-        var partListId = 'onshape-parts-' + elementId;
-        partsContainer.append("<div class='panel-heading'><h3 class='panel-title'>" +
-        escapeString(elementName) + "</h3></div>");
-        partsContainer.append("<div class='list-group' id='" + partListId + "'></div>");
-        return partListId;
-    }
+    //    var partListId = 'onshape-parts-' + elementId;
+    //    partsContainer.append("<div class='panel-heading'><h3 class='panel-title'>" +
+    //    escapeString(elementName) + "</h3></div>");
+    //    partsContainer.append("<div class='list-group' id='" + partListId + "'></div>");
+    //    return partListId;
+    //}
 
 	// 
 	// Function: escapeString
 	//
-    function escapeString(string) {
-        return string.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    }
+    //function escapeString(string) {
+    //    return string.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    //}
 })();
